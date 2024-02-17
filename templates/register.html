@@ -1,0 +1,30 @@
+<!-- register.html -->
+
+{% extends "layout.html" %}
+{% block title %}
+    Register
+{% endblock %}
+
+{% block content %}
+    <h1>Register</h1>
+    <form method="POST" action="{{ url_for('register') }}">
+        <!-- Username input -->
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <!-- Password input -->
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <!-- Register button -->
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <!-- Flashed messages -->
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-info mt-3" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endblock %}

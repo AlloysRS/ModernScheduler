@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Calendar
+{% endblock %}
+
+{% block content %}
+    <h1>Calendar View</h1>
+    <!-- Month selection dropdown -->
+    <select id="month-select" style="font-size: 30px;">
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+    </select>
+    <!-- Calendar table -->
+    <table class="table table-bordered mt-4 calendar-table">
+        <thead>
+            <tr>
+                <!-- Weekday headers -->
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+                <th>Sun</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for week in calendar_data %}
+            <tr>
+                {% for day in week %}
+                <td>
+                    {% if day %}
+                        <h5>{{ day.date[-2:] }}</h5>
+                        <!-- Display events -->
+                        {% for event in day.events %}
+                            {% if loop.index == 1 %}
+                                <a href="{{ url_for('event', event_id=event[0]) }}"><span class="badge calendar-event">{{ event[2] }}</span></a>
+                            {% endif %}
+                            {% if loop.index == 2 and day.total_events == 2 %}
+                                <a href="{{ url_for('event', event_id=event[0]) }}"><span class="badge calendar-event">{{ event[2] }}</span></a>
+                            {% endif %}
+                        {% endfor %}
+                        {% if day.total_events > 2 and day.total_events != 2 %}
+                            <span class="badge calendar-event-overflow">... and {{ day.total_events-1 }} more events</span>
+                        {% endif %}
+                        <!-- Display tasks -->
+                        {% for task in day.tasks %}
+                            {% set task_due_date = task[5]|string_to_datetime %}
+                            {% set day_datetime = day.date|string_to_datetime %}
+                            {% set delta = task_due_date - day_datetime %}
+                            {% if delta.days == 0 %}
+                                {% if loop.index < 4 %}
+                                    <a href="{{ url_for('task', task_id=task[0]) }}"><span class="badge calendar-task">{{ task[2] }}</span></a>
+                                {% endif %}
+                                {% if loop.index == 4 and day.total_tasks == 4 %}
+                                    <a href="{{ url_for('task', task_id=task[0]) }}"><span class="badge calendar-task">{{ task[2] }}</span></a>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if day.total_tasks > 4 and day.total_tasks != 4 %}
+                            <span class="badge calendar-task-overflow">... and {{ day.total_tasks-3 }} more tasks</span>
+                        {% endif %}
+                    {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- JavaScript for month selection -->
+    <script>
+        $( function() {
+            // Set default month to current month
+            var selectedMonth = {{ date_month.month }};
+            $("#month-select").val(selectedMonth);
+            $("#month-select").change(function() {
+                var selectedMonth = $(this).val();
+                var year = {{ current_date.year }};
+                var url = '/calendar?year=' + year + '&month=' + selectedMonth;
+                window.location.href = url;
+            });
+        });
+    </script>
+{% endblock %}

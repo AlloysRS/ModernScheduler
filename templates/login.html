@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Login - Task Tracker
+{% endblock %}
+
+{% block content %}
+    <h1>Login</h1>
+    <form method="POST">
+        <!-- Username input -->
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <!-- Password input -->
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <!-- Login button -->
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+
+    <!-- Flashed messages -->
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-info mt-3" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endblock %}

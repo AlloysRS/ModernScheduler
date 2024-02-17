@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    About - Modern Scheduler
+{% endblock %}
+
+{% block content %}
+{% if session.get('dark_mode') %}
+<div class="jumbotron bg-dark text-white mt-4">
+{% else %}
+<div class="jumbotron mt-4">
+{% endif %}
+    <h1 class="display-4">About Modern Scheduler</h1>
+    <p class="lead">Welcome to Modern Scheduler, your ultimate task and event management tool!</p>
+    <hr class="my-4">
+    <h2>Functionality</h2>
+    <p>Modern Scheduler allows you to:</p>
+    <ul>
+        <li>Manage your tasks by adding, updating, and deleting them.</li>
+        <li>View your tasks in a convenient table format.</li>
+        <li>Organize your tasks by status (To Do, In Progress, Done, On Hold).</li>
+        <li>Set due dates for your tasks and view them on the calendar.</li>
+        <li>View and manage your events by adding, updating, and deleting them.</li>
+        <li>See all your tasks and events in a calendar view with the ability to change the month.</li>
+        <li>Update your profile information, including your display name and password.</li>
+        <li>Toggle dark mode for a better viewing experience.</li>
+        <li>View login/logout and task history (admin only).</li>
+    </ul>
+    <h2>Implementation Details</h2>
+    <p>Modern Scheduler is implemented using Python's Flask framework for the backend and SQLite for the database. Here's how some of the key features are implemented:</p>
+    <ul>
+        <li><strong>Tasks:</strong> Users can add, update, and delete tasks. Task status is managed using predefined options (To Do, In Progress, Done, On Hold).</li>
+        <li><strong>Events:</strong> Users can add, update, and delete events. Events are associated with a specific date and can have optional comments.</li>
+        <li><strong>Calendar:</strong> The calendar view displays all tasks and events for a selected month. Tasks are color-coded based on their status.</li>
+        <li><strong>User Authentication:</strong> Users can register, log in, and log out. Passwords are hashed using bcrypt for security.</li>
+        <li><strong>Profile Management:</strong> Users can update their display name and password.</li>
+        <li><strong>Dark Mode:</strong> Users can toggle dark mode for a different visual theme.</li>
+        <li><strong>History:</strong> Admin users can view login/logout and task history.</li>
+    </ul>
+    <h2>Usage Examples</h2>
+    <p>Here are some examples of how you can use Modern Scheduler:</p>
+    <ul>
+        <li><strong>Adding a Task:</strong> Navigate to the "Tasks" page and click "Add Task". Enter the task details and click "Submit".</li>
+        <li><strong>Updating Task Status:</strong> On the "Tasks" page, click the dropdown next to a task and select a new status.</li>
+        <li><strong>Viewing Calendar:</strong> Navigate to the "Calendar" page to see all your tasks and events in a monthly view. You can navigate between months using the arrow buttons.</li>
+        <li><strong>Changing Profile Information:</strong> Go to the "Profile" page to update your display name or password.</li>
+        <li><strong>Logging Out:</strong> Click on "Logout" in the navigation bar to log out of your account.</li>
+    </ul>
+    <h2>Havard's CS50 Final Project</h2>
+    <p>This website is a final project for Havard's CS50 Introduction to Computer Science Course. It demonstrates the skills acquired throughout the course, including general programming concepts, using Python, web development with HTML, CSS and JS, database management with SQL, and cybersecurity concepts.</p>
+    <p>Please follow my work on <a href="https://github.com/AlloysRS">GitHub</a></p>
+</div>
+{% endblock %}

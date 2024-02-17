@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History View
+{% endblock %}
+
+{% block content %}
+    <h1>History View</h1>
+    <!-- Table to display history entries -->
+    <table class="table" id="historyTable">
+        <thead>
+            <tr>
+                <!-- Table headers -->
+                <th>Timestamp</th>
+                <th>Action</th>
+                <th>User</th>
+                <th>Task ID</th>
+                <th>Task Name</th>
+                <th>Task Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in history_entries %}
+            <tr>
+                <!-- Display each history entry -->
+                <td class="taskNameLength">{{ entry[1] }}</td>
+                <td class="taskNameLength">{{ entry[2] }}</td>
+                <td class="taskNameLength">{{ entry[3] }}</td>
+                <td class="taskNameLength">{{ entry[4] }}</td>
+                <td class="taskNameLength">
+                    <!-- Link to task if available -->
+                    {% if entry[5] is not none %}
+                        <a href="/task/{{ entry[4] }}" id="taskNameLength">{{ entry[5] }}</a>
+                    {% else %}
+                        {{ entry[5] }}
+                    {% endif %}
+                </td>
+                <td class="taskNameLength">{{ entry[6] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

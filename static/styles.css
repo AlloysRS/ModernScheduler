@@ -1,0 +1,223 @@
+/* Table styles */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #dee2e6; /* Border color */
+}
+
+.table th,
+.table td {
+    padding: 8px; /* Adjust padding as needed */
+    text-align: left; /* Align text to left */
+    vertical-align: middle; /* Align vertically centered */
+    border: 1px solid #dee2e6; /* Border color */
+}
+
+.table th {
+    background-color: #f8f9fa; /* Header background color */
+    font-weight: bold; /* Bold font for headers */
+    color: #333; /* Header text color */
+}
+
+.table tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa; /* Alternate row background color */
+}
+
+.index-table td:nth-child(1),
+.index-table th:nth-child(1) {
+    max-width: 5vw;
+    min-width: 5vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.index-table td:nth-child(2),
+.index-table th:nth-child(2) {
+    max-width: 4vw;
+    min-width: 1vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.index-table td:nth-child(3),
+.index-table th:nth-child(3) {
+    max-width: 3vw;
+    min-width: 1vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.index-table td:nth-child(4),
+.index-table th:nth-child(4) {
+    max-width: 3vw;
+    min-width: 1vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.index-table td:nth-child(5),
+.index-table th:nth-child(5) {
+    max-width: 8vw;
+    min-width: 5vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.calendar-table {
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+}
+
+.calendar-table th,
+.calendar-table td {
+    padding: 8px;
+    text-align: center; /* Center align text */
+    vertical-align: top;
+    border: 1px solid #dee2e6;
+    max-width: 1vw; /* Divide equally into 7 columns */
+    height: calc(100vh / 7); /* Set the height of each row to 1/7th of the viewport height */
+}
+
+.calendar-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: #333;
+}
+
+.calendar-table tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa;
+}
+
+.calendar-table thead th{
+    height:20%;
+}
+
+.task-table td:nth-child(1),
+.task-table th:nth-child(1),
+.task-table td:nth-child(2),
+.task-table th:nth-child(2) {
+    max-width: 5vw;
+    min-width: 1vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Other class styles */
+.task-name {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #333; /* Example color */
+    /* Add any other styles you want */
+}
+
+.date {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.today {
+    background-color: #cce5ff; /* Light blue background */
+}
+
+.badge {
+    font-size: 0.8em;
+    margin-right: 5px;
+    white-space: nowrap; /* Prevent badge overflow */
+}
+
+.has-tasks {
+    position: relative;
+}
+
+.has-tasks .badge-warning {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+
+.taskNameLength {
+    max-width: 1vw; /* This applies to tables with the class "table" */
+    min-width: 1vw; /* This applies to tables with the class "table" */
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+ }
+
+/* Calendar Badges */
+
+.calendar-task {
+    width: 100%; /* Set the width of the element */
+    padding: 0.5em;
+    overflow: hidden; /* Hide overflowing content */
+    text-align: left;
+    background-color: #228B22;
+    color: #FFFFFF;
+    border-radius: .4em;
+    white-space: nowrap; /* Prevent wrapping */
+    text-overflow: ellipsis; /* Display ellipsis for overflowed content */
+}
+
+.calendar-event {
+    width: 100%; /* Set the width of the element */
+    padding: 0.5em;
+    overflow: hidden; /* Hide overflowing content */
+    text-align: left;
+    background-color: #FF0000;
+    color: #FFFFFF;
+    border-radius: .4em;
+    white-space: nowrap; /* Prevent wrapping */
+    text-overflow: ellipsis; /* Display ellipsis for overflowed content */
+}
+
+.calendar-task-overflow {
+    width: 100%; /* Set the width of the element */
+    padding: 0.5em;
+    overflow: hidden; /* Hide overflowing content */
+    text-align: left;
+    background-color: #00008B;
+    color: #FFFFFF;
+    border-radius: .4em;
+    white-space: nowrap; /* Prevent wrapping */
+    text-overflow: ellipsis; /* Display ellipsis for overflowed content */
+}
+
+.calendar-event-overflow {
+    width: 100%; /* Set the width of the element */
+    padding: 0.5em;
+    overflow: hidden; /* Hide overflowing content */
+    text-align: left;
+    background-color: #00008B;
+    color: #FFFFFF;
+    border-radius: .4em;
+    white-space: nowrap; /* Prevent wrapping */
+    text-overflow: ellipsis; /* Display ellipsis for overflowed content */
+}
+
+/* ID Settings */
+
+#commentsInput {
+    width: 100%;
+    height: 150px;
+}
+
+#commentsDisplay {
+    white-space: pre-line;
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#commentsField {
+    max-width: 25vw;
+}
+
+#rightBackBtn {
+    float: right;
+}

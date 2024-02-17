@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Task Details
+{% endblock %}
+
+{% block content %}
+    <h1>Task Details</h1>
+    <table class="table task-table">
+        <thead>
+            <tr>
+                <!-- Table headers -->
+                <th>Task Name</th>
+                <th>User</th>
+                <th>Status</th>
+                <th>Date Added</th>
+                <th>Date Due</th>
+                <th>Last Updated</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <!-- Task details -->
+                <td>{{ task[2] }}</td>
+                <td>{{ task[1] }}</td>
+                <td>{{ task[3] }}</td>
+                <td>{{ task[4] }}</td>
+                <td>{{ task[5] }}</td>
+                <td>{{ task[6] }}</td>
+            </tr>
+            <tr>
+                <td colspan="6" id="commentsField">
+                    <h4>Comments: </h4>
+                    <div id="commentsDisplay">{{ task[7]|e }}</div>
+                    <br> <!-- Add spacing between comments and button -->
+                    <!-- Button to edit comments -->
+                    <button class="btn btn-primary" id="editCommentsBtn">Edit Comments</button>
+                    <!-- Button to go back -->
+                    <a href="#" class="btn btn-warning" id="rightBackBtn">Go Back</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- JavaScript for editing comments -->
+    <script>
+        $(document).ready(function(){
+            $('#editCommentsBtn').click(function() {
+                // Replace comments display with textarea for editing
+                var comments = $('#commentsDisplay').html();
+                $('#commentsField').html('<textarea id="commentsInput" rows="3">' + comments + '</textarea> <button class="btn btn-success" id="updateCommentsBtn">Update</button>');
+                $('#commentsInput').css({'width': '100%', 'height': '150px'}); // Adjust width and height
+            });
+
+            // Update comments when the update button is clicked
+            $(document).on('click', '#updateCommentsBtn', function() {
+                var newComments = $('#commentsInput').val();
+                var taskId = {{ task[0] }};
+                $.post('/update_comments/' + taskId, {comments: newComments}, function(data){
+                    location.reload(); // Reload the page after updating comments
+                });
+            });
+
+            // Go back to the previous page when the back button is clicked
+            $('#rightBackBtn').click(function(e) {
+                e.preventDefault(); // Prevent default link behavior
+                window.history.back(); // Go back to the last page
+            });
+        });
+    </script>
+{% endblock %}

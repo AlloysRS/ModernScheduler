@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Events
+{% endblock %}
+
+{% block content %}
+    <h1>Events</h1>
+    <!-- Form to add a new event -->
+    <div class="row mb-3">
+        <div class="col">
+            <form id="eventForm" method="POST" action="{{ url_for('add_event') }}" class="form-inline">
+                <input type="text" name="event_name" placeholder="Enter a new event" class="form-control mr-2" required>
+                <!-- Prefill the date input with the existing due date -->
+                <input type="date" name="event_date" class="form-control mr-2" value="{{ today_date }}" required>
+                <button type="submit" class="btn btn-primary">Add Event</button>
+            </form>
+        </div>
+    </div>
+    <!-- Display existing events -->
+    <div class="row">
+        <div class="col">
+            <h3>Events</h3>
+            <table class="table index-table">
+                <thead>
+                    <tr>
+                        <!-- Table headers -->
+                        <th>Event</th>
+                        <th>User</th>
+                        <th>Date Added</th>
+                        <th>Event Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                    <tr>
+                        <!-- Event details -->
+                        <td><a href="{{ url_for('event', event_id=event[0]) }}">{{ event[2] }}</a></td>
+                        <td>{{ display_name }}</td>
+                        <td>{{ event[3] }}</td>
+                        <td>{{ event[4] }}</td>
+                        <td>
+                            <!-- Form to update event date or delete event -->
+                            <form method="POST" action="{{ url_for('update_event_date', event_id=event[0]) }}" class="d-inline form-inline">
+                                <div class="form-group">
+                                    <!-- Prefill the date input with the existing event date -->
+                                    <input type="date" name="new_date" class="form-control mr-2" value="{{ event[4] }}" required>
+                                    <button type="submit" class="btn btn-primary mr-2">Change Date</button>
+                                    <button type="submit" formaction="{{ url_for('delete_event', event_id=event[0]) }}" class="btn btn-danger">Delete</button>
+                                </div>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Event Details
+{% endblock %}
+
+{% block content %}
+    <h1>Event Details</h1>
+    <!-- Event details table -->
+    <table class="table event-table">
+        <thead>
+            <tr>
+                <!-- Table headers -->
+                <th>Event Name</th>
+                <th>User</th>
+                <th>Date Added</th>
+                <th>Event Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <!-- Event details -->
+                <td>{{ event[2] }}</td>
+                <td>{{ event[1] }}</td>
+                <td>{{ event[3] }}</td>
+                <td id="eventDateDisplay">{{ event[4] }}</td>
+            </tr>
+            <tr>
+                <td colspan="4" id="editDateField">
+                    <!-- Editable fields -->
+                    <h4>Comments: </h4>
+                    <div id="commentsDisplay">{{ event[5]|e }}</div>
+                    <br> <!-- Add spacing between comments and buttons -->
+                    <!-- Buttons for editing comments and date -->
+                    <button class="btn btn-primary" id="editCommentsBtn">Edit Comments</button>
+                    <button class="btn btn-primary" id="editDateBtn">Edit Date</button>
+                    <!-- Button to go back -->
+                    <a href="#" class="btn btn-warning" id="rightBackBtn">Go Back</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Flashed messages -->
+    {% for message in get_flashed_messages() %}
+        <div class="alert alert-info mt-3" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <!-- JavaScript for editing event details -->
+    <script>
+        $(document).ready(function(){
+            // Edit event date
+            $('#editDateBtn').click(function() {
+                var eventDate = $('#eventDateDisplay').html();
+                $('#editDateField').html('<input type="date" id="newDateInput" value="' + eventDate + '"> <button class="btn btn-success" id="updateDateBtn">Update</button>');
+            });
+
+            // Update event date
+            $(document).on('click', '#updateDateBtn', function() {
+                var newDate = $('#newDateInput').val();
+                var eventId = {{ event[0] }};
+                $.post('/update_event_date/' + eventId, {new_date: newDate}, function(data){
+                    location.reload();
+                });
+            });
+
+            // Edit event comments
+            $('#editCommentsBtn').click(function() {
+                var comments = $('#commentsDisplay').html();
+                $('#editDateField').html('<textarea id="commentsInput" rows="3">' + comments + '</textarea> <button class="btn btn-success" id="updateCommentsBtn">Update</button>');
+                $('#commentsInput').css({'width': '100%', 'height': '150px'}); // Adjust width and height
+            });
+
+            // Update event comments
+            $(document).on('click', '#updateCommentsBtn', function() {
+                var newComments = $('#commentsInput').val();
+                var eventId = {{ event[0] }};
+                $.post('/update_event_comments/' + eventId, {comments: newComments}, function(data){
+                    location.reload();
+                });
+            });
+
+            // Go back to previous page
+            $('#rightBackBtn').click(function(e) {
+                e.preventDefault();
+                window.history.back();
+            });
+        });
+    </script>
+{% endblock %}

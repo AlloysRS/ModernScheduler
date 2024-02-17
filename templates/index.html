@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Task Tracker
+{% endblock %}
+
+{% block content %}
+    <h1>Task Tracker</h1>
+    <!-- Form to add a new task -->
+    <div class="row mb-3">
+        <div class="col">
+            <form id="taskForm" method="POST" action="{{ url_for('add_task') }}" class="form-inline">
+                <input type="text" name="task" placeholder="Enter a new task" class="form-control mr-2" required>
+                <select name="status" class="form-control mr-2">
+                    <option value="ToDo">To Do</option>
+                    <option value="InProgress">In Progress</option>
+                    <option value="Done">Done</option>
+                    <option value="OnHold">On Hold</option>
+                </select>
+                <input type="date" name="due" class="form-control mr-2" value="{{ today_date }}" required>
+                <button type="submit" class="btn btn-primary">Add Task</button>
+            </form>
+        </div>
+        <div class="col-auto">
+            <!-- Greeting message -->
+            <span>{{ greeting }} {{ display_name }}</span>
+        </div>
+    </div>
+
+    <!-- Display tasks grouped by status -->
+    {% for status, tasks in tasks_by_status.items() %}
+    <div class="row">
+        <div class="col">
+            {% if status == "ToDo" %}
+                <h3>To Do</h3>
+            {% elif status == "InProgress" %}
+                <h3>In Progress</h3>
+            {% elif status == "Done" %}
+                <h3>Done</h3>
+            {% elif status == "OnHold" %}
+                <h3>On Hold</h3>
+            {% endif %}
+            <!-- Table to display tasks -->
+            <table class="table index-table">
+                <thead>
+                    <tr>
+                        <!-- Table headers -->
+                        <th>Task</th>
+                        <th>User</th>
+                        <th>Date Added</th>
+                        <th>Date Due</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if tasks %}
+                    <!-- Loop through tasks -->
+                    {% for task in tasks %}
+                    <tr>
+                        <td>
+                            <!-- Display task name and status badge -->
+                            {% set task_deadline = task[5]|string_to_datetime %}
+                            {% set now = current_datetime %}
+                            {% set days_until_due = (task_deadline - now).days %}
+                            {% if days_until_due < -1 and task[3] != 'Done' %}
+                                <span class="badge badge-danger">Overdue</span>
+                            {% elif days_until_due <= 0 and task[3] != 'Done' %}
+                                <span class="badge badge-warning">Due Soon</span>
+                            {% endif %}
+                            <a href="{{ url_for('task', task_id=task[0]) }}" id="taskNameLength">{{ task[2] }}</a>
+                        </td>
+                        <td>{{ display_name }}</td>
+                        <td>{{ task[4] }}</td>
+                        <td>{{ task[5] }}</td>
+                        <td>
+                            <div class="row">
+                                <div class="col">
+                                    <!-- Dropdown to change task status -->
+                                    <select class="custom-select" id="statusSelect{{ task[0] }}">
+                                        <option value="ToDo" {% if task[3] == 'ToDo' %} selected {% endif %}>To Do</option>
+                                        <option value="InProgress" {% if task[3] == 'InProgress' %} selected {% endif %}>In Progress</option>
+                                        <option value="Done" {% if task[3] == 'Done' %} selected {% endif %}>Done</option>
+                                        <option value="OnHold" {% if task[3] == 'OnHold' %} selected {% endif %}>On Hold</option>
+                                    </select>
+                                </div>
+                                <div class="col-auto">
+                                    <!-- Button to change task status -->
+                                    <button type="button" class="btn btn-primary change-status-btn" data-taskid="{{ task[0] }}">Change</button>
+                                </div>
+                                <div class="col-auto">
+                                    <!-- Button to delete task -->
+                                    <button type="button" class="btn btn-danger delete-btn" data-taskid="{{ task[0] }}">X</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% else %}
+                        <!-- No tasks in this category -->
+                        <tr>
+                            <td colspan="5">No tasks in this category.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

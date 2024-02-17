@@ -1,0 +1,172 @@
+/* Dark mode styles */
+
+/* Background and text colors */
+body {
+    background-color: #333;
+    color: #fff;
+}
+
+.navbar {
+    background-color: #222;
+}
+
+.navbar-light .navbar-brand,
+.navbar-light .navbar-nav .nav-link {
+    color: #fff;
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #ccc;
+}
+
+/* Table styles */
+.table {
+    border: 1px solid #555;
+}
+
+.table th,
+.table td {
+    border: 1px solid #555;
+    color: #fff;
+}
+
+.table th {
+    background-color: #444;
+}
+
+.table tbody tr:nth-of-type(odd) {
+    background-color: #444;
+}
+
+/* Task name style */
+.task-name {
+    color: #fff;
+}
+
+/* Calendar table styles */
+.calendar-table th,
+.calendar-table td {
+    border: 1px solid #555;
+    color: #fff;
+}
+
+.calendar-table th {
+    background-color: #444;
+}
+
+.calendar-table tbody tr:nth-of-type(odd) {
+    background-color: #444;
+}
+
+/* Highlight current day */
+.today {
+    background-color: #666;
+}
+
+/* Add a badge for tasks */
+.badge {
+    color: #000;
+    background-color: #fff;
+}
+
+/* Overdue tasks */
+.has-tasks .badge-warning {
+    background-color: #ff0;
+    color: #000;
+}
+
+.calendar-task {
+    width: 100%; /* Set the width of the element */
+    padding: 0.5em;
+    overflow: hidden; /* Hide overflowing content */
+    text-align: left;
+    background-color: #228B22;
+    color: #FFFFFF;
+    border-radius: .4em;
+    white-space: nowrap; /* Prevent wrapping */
+    text-overflow: ellipsis; /* Display ellipsis for overflowed content */
+}
+
+.calendar-event {
+    width: 100%; /* Set the width of the element */
+    padding: 0.5em;
+    overflow: hidden; /* Hide overflowing content */
+    text-align: left;
+    background-color: #FF0000;
+    color: #FFFFFF;
+    border-radius: .4em;
+    white-space: nowrap; /* Prevent wrapping */
+    text-overflow: ellipsis; /* Display ellipsis for overflowed content */
+}
+
+.calendar-task-overflow {
+    width: 100%; /* Set the width of the element */
+    padding: 0.5em;
+    overflow: hidden; /* Hide overflowing content */
+    text-align: left;
+    background-color: #00008B;
+    color: #FFFFFF;
+    border-radius: .4em;
+    white-space: nowrap; /* Prevent wrapping */
+    text-overflow: ellipsis; /* Display ellipsis for overflowed content */
+}
+
+.calendar-event-overflow {
+    width: 100%; /* Set the width of the element */
+    padding: 0.5em;
+    overflow: hidden; /* Hide overflowing content */
+    text-align: left;
+    background-color: #00008B;
+    color: #FFFFFF;
+    border-radius: .4em;
+    white-space: nowrap; /* Prevent wrapping */
+    text-overflow: ellipsis; /* Display ellipsis for overflowed content */
+}
+
+/* Input box styles */
+#commentsInput {
+    background-color: #444;
+    color: #fff;
+}
+
+#commentsDisplay {
+    background-color: #444;
+    color: #fff;
+}
+
+#commentsField {
+    background-color: #444;
+    color: #fff;
+}
+
+/* Button styles */
+#rightBackBtn {
+    background-color: #555;
+    color: #fff;
+}
+
+/* Adjust the input box width and height */
+#commentsInput {
+    width: 100%;
+    height: 150px;
+}
+
+#commentsDisplay {
+    white-space: pre-line;
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#commentsField {
+    max-width: 25vw;
+}
+
+/* Truncate task name in tables */
+.taskNameLength {
+    max-width: 1vw;
+    min-width: 1vw;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
